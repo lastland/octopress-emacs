@@ -1,9 +1,15 @@
-(setq octopress-workdir (expand-file-name "~/src/octopress"))
+(defun octopress-setworkdir (dir)
+  (setq octopress-workdir dir))
+
+(defun octopress-set-dir (dir)
+  "set dir as octopress-workdir"
+  (interactive "MDir: ")
+  (octopress-setworkdir dir))
 
 
 (defun octopress-rake (command)
   "run rake commands"
-  (let ((command-str (format "bash -l -c 'eval \"$(rbenv init -)\" && rbenv local 1.9.2-p290 && cd %s && rake %s'" octopress-workdir command)))
+  (let ((command-str (format "sh -l -c 'cd %s && rake %s'" octopress-workdir command)))
     (shell-command-to-string command-str)))
 
 
